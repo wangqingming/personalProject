@@ -1,0 +1,52 @@
+{
+  "Mysql" : {
+    "varchar" : "string",
+    "datetime" :"date",
+    "date" :"date",
+
+    "timestamp" : {
+      "name" : "timestamp",
+      "defaultLength" : "126",
+      "desciption" : "mysql的时间戳类型对应的默认类型和长度"
+    },
+    "text" : {
+      "name" : "text",
+      "desciption" : "mysql的大文本类型对应的默认类型和长度"
+    },
+    "number" : {
+      "type" : "int",
+      "precision" : 0,
+      "scale" : 0,
+      "desciption" : "mysql的字符类型对应的默认类型和长度"
+    },
+    "boolean" : {
+      "type" : "boolean",
+      "desciption" : "mysql的字符类型对应的默认类型和长度"
+    }
+  },
+  "oracle" : {
+    "string" : {
+      "name" : "varchar2",
+      "defaultLength" : "32",
+      "desciption" : "mysql的字符类型对应的默认类型和长度"
+    },
+    "date" : {
+      "name" : "date",
+      "desciption" : "mysql的日期类型对应的默认类型和长度"
+    },
+    "timestamp" : {
+      "name" : "timestamp",
+      "desciption" : "mysql的时间戳类型对应的默认类型和长度"
+    },
+    "text" : {
+      "name" : "clob",
+      "desciption" : "mysql的大文本类型对应的默认类型和长度"
+    },
+    "number" : {
+      "type" : "number",
+      "precision" : 38,
+      "scale" :0,
+      "desciption" : "mysql的字符类型对应的默认类型和长度"
+    }
+  }
+}

@@ -14,13 +14,24 @@ public class DBHelper {
 
     public static void main(String[] args) {
 
-        String driverName = "com.kingbase8.Driver";
-        String url = "jdbc:kingbase8://10.110.60.51:54321/MINISTRY";
-        String user = "MINISTRY";
-        String pwd = "MINISTRY";
-        String type = "Kingbase";
-        String table = "sjk_test_view_by_view";
+//        String driverName = "org.postgresql.Driver";
+//        String url = "jdbc:postgresql://117.73.8.69:26257/tpcc?sslmode=require";
+//        String user = "bini";
+//        String pwd = "Inspur@123";
+//        String type = "newSQl";
+//        String table = "b_comm_catalog_lzp";
 
+//--url="postgresql://test:"Inspur@123"@10.110.10.49:26257/testdb?sslmode=require"
+        String driverName = "org.postgresql.Driver";
+        String url = "jdbc:postgresql://10.110.10.49:26257/testdb?sslmode=require";
+        String user = "test";
+        String pwd = "Inspur@123";
+        String type = "newSQl";
+        String table = "hidden_screen_item";
+
+        if(StringUtils.isNumeric(driverName)  ){
+            int value = Integer.parseInt(driverName);
+        }
 
 
         DBHelper db = null;
@@ -67,7 +78,7 @@ public class DBHelper {
         }
         try {
             conn = driver.connect(url, props);//获取连接
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("获取数据库连接失败！url=【" + url + "】，user=【" + user + "】,password=【" + password + "】，driverName=【" + driverName + "】");
         }

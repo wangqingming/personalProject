@@ -1,7 +1,9 @@
 package com.inspur.log.demo.logdemo;
 
 import com.inspur.log.demo.logdemo.jdbc.JdbcUtils;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,13 +20,8 @@ import java.util.Map;
 public class DataTypeMapping {
 
     public static void main(String[] args) {
-        String file = DataTypeMapping.class.getClassLoader().getResource("DataTypeMapping.json").getFile();
+        String file = DataTypeMapping.class.getClassLoader().getResource("datatypemapping.json").getFile();
 
-        try {
-            System.out.println(getTableColumnInfo(null,null,"di_job"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         String substring = file.substring(1);
 
         String s1 = null;
@@ -33,14 +30,31 @@ public class DataTypeMapping {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(s1);
+        parseJson(s1);
     }
 
 
-    public static List<Map<String, String>> getTableColumnInfo( String catalog, String schema, String tableName) throws SQLException {
+    public static void parseJson(String content) {
+        try {
+            JSONObject jsonObj = JSONObject.fromObject(content);
+
+            JSONObject dbToStandard = jsonObj.getJSONObject("dbToStandard").getJSONObject("newSql".toLowerCase());  // 来源库类型sourceDbType对应的数据库字段类型映射
+            JSONObject standardToDb = jsonObj.getJSONObject("standardToDb").getJSONObject("oracle".toLowerCase());  // 目标库类型targetDbType对应的数据库字段类型映射
+
+            String standardColunmType = dbToStandard.getString("bool".toLowerCase()); // 源表的当前字段类型对应的标准字段类型
+        } catch (Exception e) {
+            String errorMsg = ExceptionUtils.getStackTrace(e);
+            System.out.printf(errorMsg);
+        }
+
+
+    }
+
+
+    public static List<Map<String, String>> getTableColumnInfo(String catalog, String schema, String tableName) throws SQLException {
         List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 
-        try(Connection connection = JdbcUtils.getConnection();) {
+        try (Connection connection = JdbcUtils.getConnection();) {
 
             ResultSet rs = null;
 
@@ -122,7 +136,6 @@ public class DataTypeMapping {
          * columnNamePattern - 列名称模式；它必须与存储在数据库中的列名称匹配
          */
     }
-
 
 
 }
